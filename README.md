@@ -48,21 +48,40 @@ The system provides:
 - JavaScript
 - Leaflet.js
 - OpenStreetMap
-- REST APIs
 
 ---
 
 ## Project Structure
 
 ```
-Project/
+ambulance_navigation/
+│
+├── .venv/
+│
+├── services/
+│   └── ors.py                   
+│
+├── static/
+│   ├── css/
+│   │   ├── home.css
+│   │   ├── style.css
+│   │
+│   ├── js/
+│   │   ├── hospital.js
+│   │   ├── driver.js
+│   │   └── police.js
+│   │
+├── templates/
+│   ├── index.html
+│   ├── hospital.html
+│   ├── driver.html
+│   └── police.html
 │
 ├── app.py
+├── config.py
 ├── simulate.py
-├── templates/
-│   └── index.html
-├── static/
 ├── README.md
+├── .gitignore
 └── requirements.txt
 ```
 
