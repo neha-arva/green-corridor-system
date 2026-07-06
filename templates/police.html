@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Traffic Police Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<header>
+
+<h1>🚦 Traffic Police Dashboard</h1>
+
+<a href="/">← Home</a>
+
+</header>
+
+
+<!-- Notification Banner -->
+
+<div class="notification-banner">
+
+    <h2>🚨 Live Notifications</h2>
+
+    <p id="notification">
+
+        No notifications.
+
+    </p>
+
+</div>
+
+<br>
+
+
+<!-- Dashboard Cards -->
+
+<div class="info">
+
+<div class="info-card">
+<h3>Status</h3>
+<p>Green Corridor Active</p>
+</div>
+
+<div class="info-card">
+<h3>ETA</h3>
+<p id="eta">Loading...</p>
+</div>
+
+<div class="info-card">
+<h3>Distance</h3>
+<p id="distance">Loading...</p>
+</div>
+
+</div>
+
+
+<!-- Map -->
+
+<div id="map"></div>
+
+<br>
+
+
+<!-- Traffic Controls -->
+
+<div class="controls">
+
+<h2>Traffic Signal Control</h2>
+
+<table>
+
+<tr>
+<th>Signal</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Signal 1</td>
+<td id="status1">🔴 RED</td>
+<td>
+<button onclick="turnGreen(1)">Turn Green</button>
+<button class="red-btn" onclick="turnRed(1)">Turn Red</button>
+</td>
+</tr>
+
+<tr>
+<td>Signal 2</td>
+<td id="status2">🔴 RED</td>
+<td>
+<button onclick="turnGreen(2)">Turn Green</button>
+<button class="red-btn" onclick="turnRed(2)">Turn Red</button>
+</td>
+</tr>
+
+<tr>
+<td>Signal 3</td>
+<td id="status3">🔴 RED</td>
+<td>
+<button onclick="turnGreen(3)">Turn Green</button>
+<button class="red-btn" onclick="turnRed(3)">Turn Red</button>
+</td>
+</tr>
+
+</table>
+
+<br>
+
+<h2>Congestion Status</h2>
+
+<p id="traffic">🔴 Heavy Traffic near Signal 2</p>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='js/police.js') }}"></script>
+
+</body>
+
+</html>

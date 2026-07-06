@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <header>
+
+        <h1>🏥 Hospital Dashboard</h1>
+
+        <a href="/">← Home</a>
+
+    </header>
+
+    <div class="info">
+
+        <div class="info-card">
+
+            <h3>Status</h3>
+
+            <p id="status">En Route</p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>ETA</h3>
+
+            <p id="eta">Loading...</p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>Distance</h3>
+
+            <p id="distance">Loading...</p>
+
+        </div>
+
+    </div>
+
+    <div id="map"></div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='js/hospital.js') }}"></script>
+
+</body>
+
+</html>

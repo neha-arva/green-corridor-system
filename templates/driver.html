@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<header>
+
+<h1>🚑 Driver Dashboard</h1>
+
+<a href="/">← Home</a>
+
+</header>
+<div class="top-buttons">
+
+    <button onclick="notifyPolice()">
+        📢 Notify Police
+    </button>
+
+    <button onclick="reroute()">
+        🔄 Reroute
+    </button>
+
+</div>
+<div class="info">
+
+<div class="info-card">
+
+<h3>Status</h3>
+
+<p>Driving</p>
+
+</div>
+
+<div class="info-card">
+
+<h3>ETA</h3>
+
+<p id="eta">Loading...</p>
+
+</div>
+
+<div class="info-card">
+
+<h3>Distance</h3>
+
+<p id="distance">Loading...</p>
+
+</div>
+
+</div>
+<div class="main-content">
+<div id="map"></div>
+<div class="controls">
+
+    <h2>🚦 Upcoming Signal</h2>
+
+    <table>
+
+        <tr>
+            <td><strong>Signal</strong></td>
+            <td id="nextSignal">Signal 1</td>
+        </tr>
+
+        <tr>
+            <td><strong>Status</strong></td>
+            <td id="signalStatus">🔴 RED</td>
+        </tr>
+
+        <tr>
+            <td><strong>Distance</strong></td>
+            <td id="signalDistance">500 m</td>
+        </tr>
+
+        <tr>
+            <td><strong>ETA</strong></td>
+            <td id="signalETA">25 sec</td>
+        </tr>
+
+    </table>
+
+    <br>
+
+    <h2>🧭 Turn-by-Turn Directions</h2>
+
+    <ol id="steps"></ol>
+
+</div>
+
+</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='js/driver.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ambulance Traffic Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <h1>Ambulance Traffic Management</h1>
+
+    <p class="subtitle">
+        Intelligent Emergency Response & Traffic Coordination System
+    </p>
+
+    <div class="cards">
+
+        <a href="/hospital" class="card">
+
+            <i class="fas fa-hospital"></i>
+
+            <h2>Hospital Dashboard</h2>
+
+            <p>
+                Track ambulance location, ETA and dispatch status.
+            </p>
+
+        </a>
+
+        <a href="/police" class="card">
+
+            <i class="fas fa-traffic-light"></i>
+
+            <h2>Traffic Police Dashboard</h2>
+
+            <p>
+                Monitor congestion and manually override traffic signals.
+            </p>
+
+        </a>
+
+        <a href="/driver" class="card">
+
+            <i class="fas fa-ambulance"></i>
+
+            <h2>Driver Dashboard</h2>
+
+            <p>
+                Receive live navigation and rerouting instructions.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
