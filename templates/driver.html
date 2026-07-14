@@ -37,6 +37,8 @@
     <button onclick="reroute()">
         🔄 Reroute
     </button>
+<hr>
+
 
 </div>
 <div class="info">
@@ -98,9 +100,65 @@
 
     <br>
 
-    <h2>🧭 Turn-by-Turn Directions</h2>
+    <h2>🩺 Patient Details</h2>
 
-    <ol id="steps"></ol>
+<label>Patient Name</label><br>
+<input type="text" id="patientNameInput" placeholder="Enter patient name"><br><br>
+
+<label>Age</label><br>
+<input type="number" id="patientAgeInput" placeholder="Enter age"><br><br>
+
+<label>Blood Group</label><br>
+<select id="bloodGroupInput">
+    <option value="">Select Blood Group</option>
+    <option>A+</option>
+    <option>A-</option>
+    <option>B+</option>
+    <option>B-</option>
+    <option>AB+</option>
+    <option>AB-</option>
+    <option>O+</option>
+    <option>O-</option>
+</select><br><br>
+
+<label>Emergency Priority</label><br>
+<select id="priorityInput">
+    <option value="">Select Priority</option>
+    <option>Critical</option>
+    <option>High</option>
+    <option>Moderate</option>
+    <option>Low</option>
+</select><br><br>
+
+<label>Medical Condition</label><br>
+<input type="text"
+       id="conditionInput"
+       placeholder="e.g. Cardiac Arrest, Stroke, Trauma"><br><br>
+
+<label>Patient Status</label><br>
+<select id="patientStatusInput">
+    <option value="">Select Status</option>
+    <option>Conscious</option>
+    <option>Unconscious</option>
+    <option>Stable</option>
+    <option>Critical</option>
+</select><br><br>
+
+<label>Heart Rate (bpm)</label><br>
+<input type="number" id="heartRateInput" placeholder="e.g. 86"><br><br>
+
+<label>SpO₂ (%)</label><br>
+<input type="number" id="spo2Input" placeholder="e.g. 98"><br><br>
+
+<label>Blood Pressure (mmHg)</label><br>
+<input type="text" id="bpInput" placeholder="e.g. 120 / 80"><br><br>
+
+<label>Temperature (°C)</label><br>
+<input type="number" step="0.1" id="tempInput" placeholder="e.g. 37.1"><br><br>
+
+<button id="sendPatientBtn">
+    📤 Send to Hospital
+</button>
 
 </div>
 

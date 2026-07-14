@@ -1,52 +1,90 @@
 from services.ors import get_route
 
-START = (17.4358, 78.4846)
+# -----------------------------
+# Hospital Destination
+# -----------------------------
+
 END = (17.4418003, 78.4971353)
 
-route = get_route(START, END)["coordinates"]
+# -----------------------------
+# Ambulance Start Locations
+# -----------------------------
 
-# -----------------------------------
-# Create smoother movement
-# -----------------------------------
+STARTS = {
 
-smooth_route = []
+    "AMB001": (17.4358, 78.4846),
 
-for i in range(len(route)-1):
+    "AMB002": (17.4330, 78.4820),
 
-    lat1, lon1 = route[i]
-    lat2, lon2 = route[i+1]
+    "AMB003": (17.4375, 78.4895)
 
-    # 10 intermediate points
-    for j in range(10):
+}
 
-        t = j / 10
+# -----------------------------
+# Create Routes
+# -----------------------------
 
-        lat = lat1 + (lat2-lat1)*t
-        lon = lon1 + (lon2-lon1)*t
+routes = {}
+current_indices = {}
 
-        smooth_route.append((lat, lon))
+for ambulance_id, start in STARTS.items():
 
-smooth_route.append(route[-1])
+    route = get_route(start, END)["coordinates"]
 
-current_index = 0
+    smooth_route = []
+
+    for i in range(len(route)-1):
+
+        lat1, lon1 = route[i]
+        lat2, lon2 = route[i+1]
+
+        for j in range(10):
+
+            t = j/10
+
+            lat = lat1 + (lat2-lat1)*t
+            lon = lon1 + (lon2-lon1)*t
+
+            smooth_route.append((lat, lon))
+
+    smooth_route.append(route[-1])
+
+    routes[ambulance_id] = smooth_route
+    current_indices[ambulance_id] = 0
 
 
-def get_current_location():
+# -----------------------------
+# Return ALL Ambulances
+# -----------------------------
 
-    global current_index
+def get_all_locations():
 
-    location = smooth_route[current_index]
+    locations = {}
 
-    current_index += 1
+    for ambulance_id in routes:
 
-    if current_index >= len(smooth_route):
+        index = current_indices[ambulance_id]
 
-        current_index = len(smooth_route)-1
+        location = routes[ambulance_id][index]
 
-    return {
+        current_indices[ambulance_id] += 2
 
-        "lat": location[0],
+        if current_indices[ambulance_id] >= len(routes[ambulance_id]):
 
-        "lng": location[1]
+            current_indices[ambulance_id] = len(routes[ambulance_id]) - 1
 
-    }
+        locations[ambulance_id] = {
+
+            "lat": location[0],
+            "lng": location[1],
+
+            "speed": 60,
+            "index": index
+
+        }
+
+    return locations
+
+def get_routes():
+
+    return routes

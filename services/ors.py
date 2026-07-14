@@ -35,8 +35,17 @@ def get_route(start, end, waypoint=None):
 
     data = response.json()
 
-    route = data["routes"][0]
+    if "routes" not in data:
+        print("ORS Error:", data)
 
+        return {
+            "coordinates": [],
+            "distance": 0,
+            "duration": 0,
+            "steps": []
+        }
+
+    route = data["routes"][0]
     geometry = polyline.decode(route["geometry"])
 
     distance = route["summary"]["distance"]

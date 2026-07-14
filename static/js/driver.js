@@ -59,7 +59,7 @@ fetch("/api/route")
 
             updates++;
 
-            if (updates >= 20) {
+            if (updates >= 25) {
 
                 signal++;
 
@@ -73,11 +73,10 @@ fetch("/api/route")
                 "Signal " + signal;
 
             document.getElementById("signalDistance").innerHTML =
-                 Math.max(0, 500 - (updates * 25)) + " m";
+                Math.max(0, 625 - (updates * 25)) + " m";
 
             document.getElementById("signalETA").innerHTML =
-                Math.max(0, 20 - updates) + " sec";
-
+                Math.max(0, 25 - updates) + " sec";
             fetch("/api/signals")
 
 .then(response => response.json())
@@ -99,7 +98,7 @@ fetch("/api/route")
 });
         });
 
-    }, 300);
+    }, 700);
 
 });
 
@@ -134,3 +133,61 @@ function reroute() {
     });
 
 }
+
+// -----------------------------
+// Send Patient Details to Hospital
+// -----------------------------
+
+document.getElementById("sendPatientBtn").addEventListener("click", function () {
+
+    const patientData = {
+
+        patientName: document.getElementById("patientNameInput").value,
+
+        age: document.getElementById("patientAgeInput").value,
+
+        bloodGroup: document.getElementById("bloodGroupInput").value,
+
+        priority: document.getElementById("priorityInput").value,
+
+        condition: document.getElementById("conditionInput").value,
+
+        status: document.getElementById("patientStatusInput").value,
+
+        heartRate: document.getElementById("heartRateInput").value + " bpm",
+
+        spo2: document.getElementById("spo2Input").value + "%",
+
+        bp: document.getElementById("bpInput").value + " mmHg",
+
+        temp: document.getElementById("tempInput").value + " °C"
+
+    };
+
+    fetch("/api/patient", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(patientData)
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+
+            alert("✅ Patient details sent to Hospital Dashboard.");
+
+        }
+
+    });
+
+});

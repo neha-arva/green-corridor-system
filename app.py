@@ -1,6 +1,6 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from services.ors import get_route
-from simulate import get_current_location
+from simulate import get_all_locations, get_routes
 
 app = Flask(__name__)
 
@@ -21,6 +21,20 @@ END = (17.4418003, 78.4971353)
 # Notification Storage
 # -----------------------------
 notification = "No notifications."
+
+# -----------------------------
+# Live Patient Data (AMB001)
+# -----------------------------
+patient_data = {
+    "patientName": "Rahul Sharma",
+    "age": 42,
+    "bloodGroup": "O+",
+    "status": "Critical",
+    "heartRate": "86 bpm",
+    "spo2": "98%",
+    "bp": "118 / 76 mmHg",
+    "temp": "37.1 °C"
+}
 
 signals = {
     1: "RED",
@@ -59,13 +73,25 @@ def driver():
 # -----------------------------
 # Route API
 # -----------------------------
-@app.route("/api/route")
-def route():
+@app.route("/api/route/<ambulance_id>")
+def route(ambulance_id):
+
+    ambulances = get_all_locations()
+
+    if ambulance_id not in ambulances:
+        return jsonify({"error": "Ambulance not found"}), 404
+
+    current = ambulances[ambulance_id]
+
+    start = (
+        current["lat"],
+        current["lng"]
+    )
 
     if reroute:
-        route_data = get_route(START, END, WAYPOINT)
+        route_data = get_route(start, END, WAYPOINT)
     else:
-        route_data = get_route(START, END)
+        route_data = get_route(start, END)
 
     return jsonify(route_data)
 
@@ -75,8 +101,14 @@ def route():
 @app.route("/api/location")
 def location():
 
-    return jsonify(get_current_location())
+    return jsonify(get_all_locations())
+# -----------------------------
+# All Routes API
+# -----------------------------
+@app.route("/api/routes")
+def routes():
 
+    return jsonify(get_routes())
 
 # -----------------------------
 # Driver -> Police Notification
@@ -128,6 +160,31 @@ def reroute_route():
     return jsonify({
         "success": True
     })
+
+
+# -----------------------------
+# Driver updates patient data
+# -----------------------------
+@app.route("/api/patient", methods=["POST"])
+def update_patient():
+
+    global patient_data
+
+    patient_data = request.json
+
+    return jsonify({
+        "success": True
+    })
+
+
+# -----------------------------
+# Hospital reads patient data
+# -----------------------------
+@app.route("/api/patient")
+def get_patient():
+
+    return jsonify(patient_data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

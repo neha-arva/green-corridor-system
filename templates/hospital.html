@@ -55,9 +55,113 @@
 
         </div>
 
+        <div class="info-card">
+
+            <h3>Select Ambulance</h3>
+
+            <select id="ambulanceSelect">
+
+                <option value="AMB001">AMB001</option>
+                <option value="AMB002">AMB002</option>
+                <option value="AMB003">AMB003</option>
+
+            </select>
+
+        </div>
+
     </div>
 
-    <div id="map"></div>
+    <div class="main-content">
+
+        <div id="map"></div>
+
+        <div class="controls">
+
+            <h2>🚑 Ambulance Status</h2>
+
+            <table>
+
+                <tr>
+                    <td><strong>Destination</strong></td>
+                    <td>🏥 Yashoda Hospital</td>
+                </tr>
+
+                <tr>
+                    <td><strong>ETA</strong></td>
+                    <td id="etaSide">Loading...</td>
+                </tr>
+
+            </table>
+
+            <hr>
+
+            <h2>🩺 Patient Details</h2>
+
+            <table>
+
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td id="patientName">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Age</strong></td>
+                    <td id="patientAge">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Blood Group</strong></td>
+                    <td id="bloodGroup">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Emergency Priority</strong></td>
+                    <td id="priority">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Medical Condition</strong></td>
+                    <td id="condition">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Patient Status</strong></td>
+                    <td id="patientStatus">Loading...</td>
+                </tr>
+
+            </table>
+
+            <hr>
+
+            <h2>❤️ Live Vitals</h2>
+
+            <table>
+
+                <tr>
+                    <td><strong>Heart Rate</strong></td>
+                    <td id="heartRate">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>SpO₂</strong></td>
+                    <td id="spo2">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Blood Pressure</strong></td>
+                    <td id="bp">Loading...</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Temperature</strong></td>
+                    <td id="temp">Loading...</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 
