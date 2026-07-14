@@ -38,12 +38,13 @@ for ambulance_id, start in STARTS.items():
         lat1, lon1 = route[i]
         lat2, lon2 = route[i+1]
 
+
         for j in range(10):
 
-            t = j/10
+            t = j / 10
 
-            lat = lat1 + (lat2-lat1)*t
-            lon = lon1 + (lon2-lon1)*t
+            lat = lat1 + (lat2-lat1) * t
+            lon = lon1 + (lon2-lon1) * t
 
             smooth_route.append((lat, lon))
 
@@ -53,9 +54,22 @@ for ambulance_id, start in STARTS.items():
     current_indices[ambulance_id] = 0
 
 
-# -----------------------------
-# Return ALL Ambulances
-# -----------------------------
+# --------------------------------------------------
+# Move ALL ambulances ONE STEP
+# --------------------------------------------------
+
+def update_locations():
+
+    for ambulance_id in current_indices:
+
+        if current_indices[ambulance_id] < len(routes[ambulance_id]) - 1:
+
+            current_indices[ambulance_id] += 2
+
+
+# --------------------------------------------------
+# Return current locations ONLY
+# --------------------------------------------------
 
 def get_all_locations():
 
@@ -67,23 +81,20 @@ def get_all_locations():
 
         location = routes[ambulance_id][index]
 
-        current_indices[ambulance_id] += 2
-
-        if current_indices[ambulance_id] >= len(routes[ambulance_id]):
-
-            current_indices[ambulance_id] = len(routes[ambulance_id]) - 1
-
         locations[ambulance_id] = {
 
             "lat": location[0],
+
             "lng": location[1],
 
             "speed": 60,
+
             "index": index
 
         }
 
     return locations
+
 
 def get_routes():
 

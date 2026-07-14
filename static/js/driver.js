@@ -37,66 +37,58 @@ fetch("/api/route")
     document.getElementById("eta").innerHTML =
         Math.ceil(data.duration / 60) + " mins";
 
-    const list = document.getElementById("steps");
-
-    data.steps.forEach(step => {
-
-        const li = document.createElement("li");
-
-        li.innerHTML = step.instruction;
-
-        list.appendChild(li);
-
-    });
-
     setInterval(() => {
 
         fetch("/api/location")
         .then(response => response.json())
-        .then(location => {
+.then(locations => {
 
-            ambulance.setLatLng([location.lat, location.lng]);
+    const location = locations["AMB001"];
 
-            updates++;
+    if(!location) return;
 
-            if (updates >= 25) {
+    ambulance.setLatLng([location.lat, location.lng]);
 
-                signal++;
+    updates++;
 
-                if (signal > 3)
-                    signal = 3;
+    if (updates >= 25) {
 
-                updates = 0;
-            }
+        signal++;
 
-            document.getElementById("nextSignal").innerHTML =
-                "Signal " + signal;
+        if (signal > 3)
+            signal = 3;
 
-            document.getElementById("signalDistance").innerHTML =
-                Math.max(0, 625 - (updates * 25)) + " m";
-
-            document.getElementById("signalETA").innerHTML =
-                Math.max(0, 25 - updates) + " sec";
-            fetch("/api/signals")
-
-.then(response => response.json())
-
-.then(signals => {
-
-    if(signals[signal] == "GREEN"){
-
-        document.getElementById("signalStatus").innerHTML="🟢 GREEN";
-
+        updates = 0;
     }
 
-    else{
+    document.getElementById("nextSignal").innerHTML =
+        "Signal " + signal;
 
-        document.getElementById("signalStatus").innerHTML="🔴 RED";
+    document.getElementById("signalDistance").innerHTML =
+        Math.max(0, 625 - (updates * 25)) + " m";
 
-    }
+    document.getElementById("signalETA").innerHTML =
+        Math.max(0, 25 - updates) + " sec";
+
+    fetch("/api/signals")
+    .then(response => response.json())
+    .then(signals => {
+
+        if(signals[signal] == "GREEN"){
+
+            document.getElementById("signalStatus").innerHTML="🟢 GREEN";
+
+        }
+
+        else{
+
+            document.getElementById("signalStatus").innerHTML="🔴 RED";
+
+        }
+
+    });
 
 });
-        });
 
     }, 700);
 

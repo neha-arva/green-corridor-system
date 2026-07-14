@@ -38,9 +38,17 @@ fetch("/api/route")
 
         fetch("/api/location")
         .then(response => response.json())
-        .then(location => {
+        .then(locations => {
 
-            ambulance.setLatLng([location.lat, location.lng]);
+
+            const ambulanceLocation = locations["AMB001"];
+
+                if(!location) return;
+
+            ambulance.setLatLng([
+                ambulanceLocation.lat,
+                ambulanceLocation.lng
+            ]);
 
         });
 

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify, request
 from services.ors import get_route
-from simulate import get_all_locations, get_routes
+from simulate import get_all_locations, get_routes, update_locations
+import threading
+import time
 
 app = Flask(__name__)
 
@@ -73,6 +75,29 @@ def driver():
 # -----------------------------
 # Route API
 # -----------------------------
+
+# -----------------------------
+# Default Route API (AMB001)
+# -----------------------------
+@app.route("/api/route")
+def default_route():
+
+    ambulances = get_all_locations()
+
+    current = ambulances["AMB001"]
+
+    start = (
+        current["lat"],
+        current["lng"]
+    )
+
+    if reroute:
+        route_data = get_route(start, END, WAYPOINT)
+    else:
+        route_data = get_route(start, END)
+
+    return jsonify(route_data)
+
 @app.route("/api/route/<ambulance_id>")
 def route(ambulance_id):
 
@@ -100,6 +125,7 @@ def route(ambulance_id):
 # -----------------------------
 @app.route("/api/location")
 def location():
+
 
     return jsonify(get_all_locations())
 # -----------------------------
@@ -185,6 +211,19 @@ def get_patient():
 
     return jsonify(patient_data)
 
+def simulation():
+
+    while True:
+
+        update_locations()
+
+        time.sleep(0.7)
+
+
+threading.Thread(
+    target=simulation,
+    daemon=True
+).start()
 
 if __name__ == "__main__":
     app.run(debug=True)
